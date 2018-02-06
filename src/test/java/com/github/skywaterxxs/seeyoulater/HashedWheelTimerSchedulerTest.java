@@ -16,14 +16,12 @@ public class HashedWheelTimerSchedulerTest {
         scheduler.start();
 
 
-        for (int i = 0; i < 10000; i++) {
-            Trigger trigger = TriggerBuilder.newJob().withTriggerExecutorKey("delay")
-                    .withTriggerExecutorData(3).build();
-            Job job = JobBuilder.newJob().withJobExecutorKey("print").withJobExecutorData(System.currentTimeMillis())
-                    .withTrigger(trigger).build();
+        Trigger trigger = TriggerBuilder.newJob().withTriggerExecutorKey("delay")
+                .withTriggerExecutorData(3).build();
+        Job job = JobBuilder.newJob().withJobExecutorKey("print").withJobExecutorData(System.currentTimeMillis())
+                .withTrigger(trigger).build();
 
-            scheduler.addJob(job);
-        }
+        scheduler.addJob(job);
 
 
         while (true) {
