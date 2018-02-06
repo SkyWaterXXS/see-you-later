@@ -5,6 +5,7 @@
 # IntelliJ project files
 .idea/
 *.iml
+/target/
 out
 gen
 /common/build/
