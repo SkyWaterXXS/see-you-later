@@ -1,6 +1,11 @@
 # see you later
 scheduler a job just like see you later
 
+A Powerful Scheduler in Java. TRY IT NOW!
+
+* Use Hashed Timing Wheel Algorithm
+* Support CronTrigger and DelayTrigger
+* Easy to Implement Trigger or Job
 
 ### Use Delay
 
@@ -38,4 +43,24 @@ scheduler a job just like see you later
                 .build();
   scheduler.addJob(job2);
 
+```
+
+### JobExecutor Demo
+
+```java
+
+public class PrintJobExecutor implements JobExecutor {
+
+    public static final String EXECUTOR_KEY = "print";
+
+    @Override
+    public String getExecutorKey() {
+        return EXECUTOR_KEY;
+    }
+
+    @Override
+    public void execute(Job job) {
+        System.out.println(job.getJobExecutorData());
+    }
+    
 ```

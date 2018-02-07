@@ -2,7 +2,6 @@ package com.github.skywaterxxs.seeyoulater.impl.triggerexecutor;
 
 import com.github.skywaterxxs.seeyoulater.Trigger;
 import com.github.skywaterxxs.seeyoulater.TriggerExecutor;
-import com.github.skywaterxxs.seeyoulater.impl.TriggerImpl;
 
 import java.util.Date;
 
