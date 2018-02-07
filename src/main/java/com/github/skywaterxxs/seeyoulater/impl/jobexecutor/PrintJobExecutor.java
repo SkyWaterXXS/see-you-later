@@ -17,9 +17,6 @@ public class PrintJobExecutor implements JobExecutor {
 
     @Override
     public void execute(Job job) {
-        Long addTime = (Long) job.getJobExecutorData();
-
-        Long nowTime = System.currentTimeMillis();
-        System.out.println(addTime + ":" + nowTime + ":" + (nowTime - addTime));
+        System.out.println(job.getJobExecutorData());
     }
 }
