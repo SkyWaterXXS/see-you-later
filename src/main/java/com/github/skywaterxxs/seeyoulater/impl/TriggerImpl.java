@@ -34,6 +34,7 @@ public class TriggerImpl implements Trigger, Serializable {
         this.triggerExecutorKey = triggerExecutorKey;
     }
 
+    @Override
     public void setTriggerExecutorData(Object triggerExecutorData) {
         this.triggerExecutorData = triggerExecutorData;
     }

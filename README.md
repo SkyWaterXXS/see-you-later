@@ -1,6 +1,9 @@
 # see you later
 scheduler a job just like see you later
 
+
+### Use Delay
+
 ```java
 
  Scheduler scheduler = new HashedTimingWheelScheduler();
@@ -19,4 +22,20 @@ scheduler a job just like see you later
 
  scheduler.addJob(job);
  
+```
+
+### Use Cron
+
+```java
+ Trigger trigger2 = TriggerBuilder.newJob()
+                .withTriggerExecutorKey("cron")
+                .withTriggerExecutorData("* * * * * ? *")
+                .build();
+ Job job2 = JobBuilder.newJob()
+                .withJobExecutorKey("print")
+                .withJobExecutorData("see you later one second")
+                .withTrigger(trigger2)
+                .build();
+  scheduler.addJob(job2);
+
 ```

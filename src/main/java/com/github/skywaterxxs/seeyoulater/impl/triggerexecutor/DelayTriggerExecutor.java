@@ -2,6 +2,7 @@ package com.github.skywaterxxs.seeyoulater.impl.triggerexecutor;
 
 import com.github.skywaterxxs.seeyoulater.Trigger;
 import com.github.skywaterxxs.seeyoulater.TriggerExecutor;
+import com.github.skywaterxxs.seeyoulater.impl.TriggerImpl;
 
 import java.util.Date;
 
@@ -21,6 +22,12 @@ public class DelayTriggerExecutor implements TriggerExecutor {
     public Date execute(Trigger trigger) {
 
         Integer delaySecs = (Integer) trigger.getTriggerExecutorData();
+
+        if (delaySecs < 0) {
+            return null;
+        }
+
+        trigger.setTriggerExecutorData(-1);
 
         return new Date(System.currentTimeMillis() + delaySecs * 1000L);
     }

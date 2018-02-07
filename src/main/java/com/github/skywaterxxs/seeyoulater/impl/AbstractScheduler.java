@@ -2,6 +2,7 @@ package com.github.skywaterxxs.seeyoulater.impl;
 
 import com.github.skywaterxxs.seeyoulater.*;
 import com.github.skywaterxxs.seeyoulater.impl.jobexecutor.PrintJobExecutor;
+import com.github.skywaterxxs.seeyoulater.impl.triggerexecutor.CronTriggerExecutor;
 import com.github.skywaterxxs.seeyoulater.impl.triggerexecutor.DelayTriggerExecutor;
 
 import java.util.Date;
@@ -26,12 +27,11 @@ public abstract class AbstractScheduler implements Scheduler {
 
     public AbstractScheduler() {
 
-        PrintJobExecutor printJobExecutor = new PrintJobExecutor();
-        jobExecutorMap.put(printJobExecutor.getExecutorKey(), printJobExecutor);
+        addJobExecutor(new PrintJobExecutor());
 
+        addTriggerExecutor(new DelayTriggerExecutor());
+        addTriggerExecutor(new CronTriggerExecutor());
 
-        DelayTriggerExecutor delayTriggerExecutor = new DelayTriggerExecutor();
-        triggerExecutorMap.put(delayTriggerExecutor.getExecutorKey(), delayTriggerExecutor);
     }
 
     @Override
@@ -46,18 +46,29 @@ public abstract class AbstractScheduler implements Scheduler {
 
         TriggerExecutor triggerExecutor = triggerExecutorMap.get(trigger.getTriggerExecutorKey());
 
-        Date executeData = triggerExecutor.execute(trigger);
+        Date executeDate = triggerExecutor.execute(trigger);
 
-        doAdd(job,executeData);
+        if (executeDate == null) {
+            return;
+        }
+
+        doAdd(job, executeDate);
     }
 
-    protected abstract void doAdd(Job job,Date executeData);
+    protected abstract void doAdd(Job job, Date executeData);
 
 
     protected void executeJob(Job job) {
         JobExecutor jobExecutor = jobExecutorMap.get(job.getJobExecutorKey());
 
-        threadPoolExecutor.execute(() -> jobExecutor.execute(job));
+        threadPoolExecutor.execute(() -> {
+            try {
+                jobExecutor.execute(job);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            addJob(job);
+        });
     }
 
     @Override

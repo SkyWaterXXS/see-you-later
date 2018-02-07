@@ -28,6 +28,18 @@ public class HashedWheelTimerSchedulerTest {
         scheduler.addJob(job);
 
 
+        Trigger trigger2 = TriggerBuilder.newJob()
+                .withTriggerExecutorKey("cron")
+                .withTriggerExecutorData("* * * * * ? *")
+                .build();
+        Job job2 = JobBuilder.newJob()
+                .withJobExecutorKey("print")
+                .withJobExecutorData("see you later one second")
+                .withTrigger(trigger2)
+                .build();
+
+        scheduler.addJob(job2);
+
         while (true) {
             try {
                 Thread.sleep(1000);
