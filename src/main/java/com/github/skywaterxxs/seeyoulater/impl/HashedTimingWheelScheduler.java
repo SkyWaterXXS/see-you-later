@@ -84,7 +84,7 @@ public class HashedTimingWheelScheduler extends AbstractScheduler {
      * @throws NullPointerException if {@code threadFactory} is {@code null}
      */
     public HashedTimingWheelScheduler(ThreadFactory threadFactory) {
-        this(threadFactory, 100, TimeUnit.MILLISECONDS);
+        this(threadFactory, 10, TimeUnit.MILLISECONDS);
     }
 
     /**
